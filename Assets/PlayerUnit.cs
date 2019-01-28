@@ -9,10 +9,20 @@ using UnityEngine.Networking;
 
 public class PlayerUnit : NetworkBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
+    private Rigidbody rb;
+    public float speed;
+
+    // Use this for initialization
+    void Start()
+    {
+        //if (hasAuthority == false)
+        //{
+        //    return;
+        //}
+
+        rb = GetComponent<Rigidbody>();
+
+    }
 
     Vector3 velocity;
 
@@ -66,21 +76,47 @@ public class PlayerUnit : NetworkBehaviour {
             this.transform.Translate( 0, 1, 0 );
         }
 
-        if(Input.GetKeyDown(KeyCode.D))
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            this.transform.Translate(-1, 0, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            this.transform.Translate(0, 0, 1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            this.transform.Translate(1, 0, 0);
+        }
+
+        if (Input.GetKeyDown(KeyCode.F))
         {
             Destroy(gameObject);
         }
 
-        if( /* some input */ true )
-        {
-            // The player is asking us to change our direction/speed (i.e. velocity)
 
-            velocity = new Vector3(1, 0, 0);
+        //if( /* some input */ true )
+        //{
+        //    // The player is asking us to change our direction/speed (i.e. velocity)
 
-            CmdUpdateVelocity(velocity, transform.position);
-        }
+        //    velocity = new Vector3(1, 0, 0);
+
+        //    CmdUpdateVelocity(velocity, transform.position);
+        //}position
 
 	}
+
+    private void FixedUpdate()
+    {
+        float moveHorizontal = Input.GetAxis("Horizontal");
+        float moveVertical = Input.GetAxis("Vertical");
+
+        Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
+
+        rb.AddForce(movement * speed);
+    }
 
     [Command]
     void CmdUpdateVelocity( Vector3 v, Vector3 p)
