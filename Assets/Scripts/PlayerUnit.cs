@@ -34,7 +34,7 @@ public class PlayerUnit : NetworkBehaviour {
     // This is a constantly updated value about our latency to the server
     // i.e. how many second it takes for us to receive a one-way message
     // TODO: This should probably be something we get from the PlayerConnectionObject
-    float ourLatency;   
+    float ourLatency;  
 
     // This higher this value, the faster our local position will match the best guess position
     float latencySmoothingFactor = 10;
@@ -133,7 +133,7 @@ public class PlayerUnit : NetworkBehaviour {
         velocity = v;
 
         // If we know what our current latency is, we could do something like this:
-        //  transform.position = p + (v * (thisPlayersLatencyToServer))
+        //transform.position = p + (v * (ourLatency));
 
 
         // Now let the clients know the correct position of this object.
