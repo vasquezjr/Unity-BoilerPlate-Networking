@@ -68,7 +68,7 @@ public class PlayerUnit : NetworkBehaviour {
 
 
         // If we get to here, we are the authoritative owner of this object
-        transform.Translate( velocity * Time.deltaTime );
+        //transform.Translate( velocity * Time.deltaTime );
 
 
         if( Input.GetKeyDown(KeyCode.Space) )
@@ -97,14 +97,15 @@ public class PlayerUnit : NetworkBehaviour {
         }
 
 
-        //if( /* some input */ true )
+        //if ( /* some input */ true)
         //{
         //    // The player is asking us to change our direction/speed (i.e. velocity)
 
-        //    velocity = new Vector3(1, 0, 0);
+        //    //velocity = new Vector3(1, 0, 0);
+        //    velocity = rb.velocity;
 
         //    CmdUpdateVelocity(velocity, transform.position);
-        //}position
+        //}
 
 	}
 
@@ -118,6 +119,9 @@ public class PlayerUnit : NetworkBehaviour {
             Vector3 movement = new Vector3(moveHorizontal, 0.0f, moveVertical);
 
             rb.AddForce(movement * speed);
+
+            velocity = rb.velocity;
+            CmdUpdateVelocity(velocity, transform.position);
         }
     }
 
